@@ -9,12 +9,16 @@
 
 <body>
     <h1>Notes App</h1>
-    <input id = "search-text" type= "text" placeholder="search"/>
-    <div id = "notes">
-
+    <input id="search-text" type="text" placeholder="search" />
+    <select id = "filter-by">
+        <option value = "byEdited">Sort by last edited</option>
+        <option value = "byCreated">Sort by recently created</option>
+        <option value = "byAlphabetical">Sort Alphabetically</option>
+    </select>
+    <div id="notes">
     </div>
     <button id="create-note">Create Note</button>
-    <button id="remove-all">Remove All Notes</button>
+
     <script src="js/notes.js"></script>
 </body>
 
