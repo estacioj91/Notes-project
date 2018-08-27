@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,14 +11,16 @@
 <body>
     <h1>Notes App</h1>
     <input id="search-text" type="text" placeholder="search" />
-    <select id = "filter-by">
-        <option value = "byEdited">Sort by last edited</option>
-        <option value = "byCreated">Sort by recently created</option>
-        <option value = "byAlphabetical">Sort Alphabetically</option>
+    <select id="filter-by">
+        <option value="byEdited">Sort by last edited</option>
+        <option value="byCreated">Sort by recently created</option>
+        <option value="alphabetical">Sort Alphabetically</option>
     </select>
     <div id="notes">
     </div>
     <button id="create-note">Create Note</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.js"></script>
+    <script src="js/uuidv4.js"></script>
     <script src="js/notes-functions.js"></script>
     <script src="js/notes.js"></script>
 </body>
