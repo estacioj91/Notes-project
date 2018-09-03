@@ -1,13 +1,12 @@
+"use strict"
 const getSavedNotes = () => {
     //Check for Local Data
     const notesJSON = localStorage.getItem("notes");
-
-    if (notesJSON !== null) {
-        return JSON.parse(notesJSON);
-    } else {
+    try{
+        return notesJSON? JSON.parse(notesJSON):[];
+    }catch(e){
         return [];
     }
-
 }
 //save notes to localStorage
 const saveNotes = (notes) =>{
@@ -22,26 +21,25 @@ const removeNote = (id) => {
 }
 //creates dom structure for a note
 const generateNoteDOM =  (note) => {
-    const noteElement = document.createElement("div");
-    const textElement = document.createElement('a');
-    const button = document.createElement("button");
-
-    button.addEventListener("click", (event) =>{
-        removeNote(note.id);
-        saveNotes(notes);
-        renderNotes(notes,filters)
-    })
-    //creates button
-    button.textContent = "x";
-    noteElement.appendChild(button);
-    //creates note title
+    const noteElement = document.createElement("a");
+    const textElement = document.createElement('p');
+    const status = document.createElement("p");
+   
     if (note.title.length > 0) {
         textElement.textContent = note.title;
     } else {
         textElement.textContent = "Unnamed note"
     }
-    textElement.setAttribute("href", `/edit.html#${note.id}`);
+    textElement.classList.add("list-item__title");
+    // textElement.setAttribute("href", `/edit.html#${note.id}`);
     noteElement.appendChild(textElement);
+    noteElement.setAttribute("href", `/edit.html#${note.id}`);
+    noteElement.classList.add("list-item");
+    //status message
+    status.textContent = generateLastEdited(note.updatedAt);
+    status.classList.add("list-item__subtitle")
+    noteElement.appendChild(status);
+
     return noteElement;
 }
 //sort function
@@ -91,12 +89,22 @@ const renderNotes =  (notes, filters) =>{
     notes = sortNotes(notes,filters.sortBy);
     const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase())
 )
-    document.querySelector("#notes").innerHTML = "";
-    filteredNotes.forEach( (note) =>{
-        const noteElement = generateNoteDOM(note);
-        document.querySelector("#notes").appendChild(noteElement);
-    })
+    const notesElement = document.querySelector("#notes");
+    notesElement.innerHTML = "";
+
+    if(filteredNotes.length>0){
+        filteredNotes.forEach( (note) =>{
+            const noteElement = generateNoteDOM(note);
+            notesElement.appendChild(noteElement);
+        })
+    }else{
+        const emptyMessage = document.createElement("p");
+        emptyMessage.classList.add("empty-message");
+        emptyMessage.textContent = "No notes to show";
+        noteElement.appendChild(emptyMessage);
+
+    }
 }
 const generateLastEdited = (timeStamp) =>{
-    return `Last edited ${moment(note.updatedAt).fromNow()}`;
+    return `Last edited ${moment(timeStamp).fromNow()}`;
 }

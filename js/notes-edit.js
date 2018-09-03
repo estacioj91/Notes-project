@@ -1,3 +1,5 @@
+"use strict"
+
 const noteId = location.hash.substring(1);
 let notes = getSavedNotes();
 const titleElement = document.querySelector("#note-title");
@@ -5,7 +7,7 @@ const bodyElement = document.querySelector("#note-body");
 const removeElement = document.querySelector("#remove-note");
 const dateElement = document.querySelector("#last-edited");
 let note = notes.find((note) => note.id === noteId)
-if (note === undefined) {
+if (!note) {
     location.assign("/index.html");
 }
 //set info on page load
@@ -34,7 +36,7 @@ window.addEventListener("storage", (event) => {
     if (event.key === "notes") {
         notes = JSON.parse(event.newValue);
         let note = notes.find((note) => note.id === noteId)
-        if (note === undefined) {
+        if (!note) {
             location.assign("/index.html");
         }
         titleElement.value = note.title;
