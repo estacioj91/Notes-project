@@ -1,5 +1,11 @@
-import {initializeEditPage, generateLastEdited} from "./views"
-import { updateNote, removeNote,  } from "./notes";
+import {
+    initializeEditPage,
+    generateLastEdited
+} from "./views"
+import {
+    updateNote,
+    removeNote,
+} from "./notes";
 
 const titleElement = document.querySelector("#note-title");
 const bodyElement = document.querySelector("#note-body");
@@ -23,7 +29,7 @@ bodyElement.addEventListener("input", (event) => {
 })
 removeElement.addEventListener("click", (event) => {
     removeNote(noteId);
-    location.assign("/index.html");
+    location.assign("./index.html");
 })
 window.addEventListener("storage", (event) => {
     if (event.key === "notes") {

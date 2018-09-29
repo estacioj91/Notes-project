@@ -8,7 +8,7 @@ const removeElement = document.querySelector("#remove-note");
 const dateElement = document.querySelector("#last-edited");
 let note = notes.find((note) => note.id === noteId)
 if (!note) {
-    location.assign("/index.html");
+    location.assign("./index.html");
 }
 //set info on page load
 titleElement.value = note.title;
@@ -30,14 +30,14 @@ bodyElement.addEventListener("input", (event) => {
 removeElement.addEventListener("click", (event) => {
     removeNote(note.id);
     saveNotes(notes);
-    location.assign("/index.html");
+    location.assign("./index.html");
 })
 window.addEventListener("storage", (event) => {
     if (event.key === "notes") {
         notes = JSON.parse(event.newValue);
         let note = notes.find((note) => note.id === noteId)
         if (!note) {
-            location.assign("/index.html");
+            location.assign("./index.html");
         }
         titleElement.value = note.title;
         bodyElement.value = note.body;
