@@ -19,7 +19,7 @@ const generateNoteDOM = (note) => {
     textElement.classList.add("list-item__title");
     // textElement.setAttribute("href", `/edit.html#${note.id}`);
     noteElement.appendChild(textElement);
-    noteElement.setAttribute("href", `/edit.html#${note.id}`);
+    noteElement.setAttribute("href", `./edit.html#${note.id}`);
     noteElement.classList.add("list-item");
     //status message
     status.textContent = generateLastEdited(note.updatedAt);
@@ -59,7 +59,7 @@ const initializeEditPage = (noteId) => {
     const notes = getNotes();
     const note = notes.find((note) => note.id === noteId)
     if (!note) {
-        location.assign("/index.html");
+        location.assign("./index.html");
     }
     //set info on page load
     titleElement.value = note.title;
