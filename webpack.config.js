@@ -5,7 +5,7 @@ module.exports = {
         edit: ["babel-polyfill", "./src/edit.js"]
     },
     output: {
-        path: path.resolve(__dirname, "docs/scripts"),
+        path: path.resolve(__dirname, "public/scripts"),
         filename: "[name]-bundle.js"
     },
     module: {
@@ -21,7 +21,7 @@ module.exports = {
         }]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "docs"),
+        contentBase: path.resolve(__dirname, "public"),
         publicPath: "/scripts/"
     },
     devtool: "source-map"
