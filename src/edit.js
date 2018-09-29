@@ -11,6 +11,7 @@ const titleElement = document.querySelector("#note-title");
 const bodyElement = document.querySelector("#note-body");
 const dateElement = document.querySelector("#last-edited");
 const removeElement = document.querySelector("#remove-note");
+const addElement = document.querySelector("#add-note");
 const noteId = location.hash.substring(1);
 
 initializeEditPage(noteId);
@@ -29,6 +30,9 @@ bodyElement.addEventListener("input", (event) => {
 })
 removeElement.addEventListener("click", (event) => {
     removeNote(noteId);
+    location.assign("./index.html");
+})
+addElement.addEventListener("click", (event) => {
     location.assign("./index.html");
 })
 window.addEventListener("storage", (event) => {
