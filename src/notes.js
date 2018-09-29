@@ -5,9 +5,9 @@ let notes = [];
 const loadNotes = () => {
     //Check for Local Data
     const notesJSON = localStorage.getItem("notes");
-    try{
-        return notesJSON? JSON.parse(notesJSON):[];
-    }catch(e){
+    try {
+        return notesJSON ? JSON.parse(notesJSON) : [];
+    } catch (e) {
         return [];
     }
 }
@@ -15,7 +15,7 @@ const loadNotes = () => {
 const getNotes = () => {
     return notes;
 }
-const createNote = () =>{
+const createNote = () => {
     const id = uuidv4();
     const timeStamp = moment().valueOf();
     notes.push({
@@ -30,75 +30,66 @@ const createNote = () =>{
 }
 
 //save notes to localStorage
-const saveNotes = () =>{
+const saveNotes = () => {
     localStorage.setItem("notes", JSON.stringify(notes));
 }
 //note remove function
 const removeNote = (id) => {
     const noteIndex = notes.findIndex((note) => note.id === id)
-    if(noteIndex > -1){
+    if (noteIndex > -1) {
         notes.splice(noteIndex, 1);
         saveNotes();
     }
 }
 //sort function
-const sortNotes = (sortBy) =>{
-    if(sortBy ==="byEdited"){
-        return notes.sort((a,b)=>{
-            if(a.updatedAt> b.updatedAt){
+const sortNotes = (sortBy) => {
+    if (sortBy === "byEdited") {
+        return notes.sort((a, b) => {
+            if (a.updatedAt > b.updatedAt) {
                 return -1;
-            }
-            else if( a.updatedAt< b.updatedAt){
+            } else if (a.updatedAt < b.updatedAt) {
                 return 1;
-            }
-            else{
+            } else {
                 return 0;
             }
         });
-    }
-    else if(sortBy ==="byCreated"){
-        return notes.sort((a,b)=>{
-            if(a.createdAt> b.createdAt){
+    } else if (sortBy === "byCreated") {
+        return notes.sort((a, b) => {
+            if (a.createdAt > b.createdAt) {
                 return -1;
-            }
-            else if( a.createdAt< b.createdAt){
+            } else if (a.createdAt < b.createdAt) {
                 return 1;
-            }
-            else{
+            } else {
                 return 0;
             }
         });
-    }
-    else if(sortBy ==="alphabetical"){
-        return notes.sort((a,b) =>{
-            if(a.title.toLowerCase()> b.title.toLowerCase()){
+    } else if (sortBy === "alphabetical") {
+        return notes.sort((a, b) => {
+            if (a.title.toLowerCase() > b.title.toLowerCase()) {
                 return 1;
-            }
-            else if( a.title.toLowerCase()< b.title.toLowerCase()){
+            } else if (a.title.toLowerCase() < b.title.toLowerCase()) {
                 return -1;
-            }
-            else{
+            } else {
                 return 0;
             }
         });
-    }
-    else{
+    } else {
         return notes;
     }
 }
-const updateNote =(id, updates) =>{
-    const note = note.find((note)=>{
+const updateNote = (id, updates) => {
+    const note = notes.find((note) => {
         return note.id === id;
     });
-    if(!note){
+    if (!note) {
         return
     }
-    if(typeof(updates.title)==="string"){
-        note.title= update.title;
+    if (typeof (updates.title) === "string") {
+        note.title = updates.title;
         note.updatedAt = moment().valueOf();
     }
-    if(typeof(updates.body)==="string"){
-        note.body= update.body;
+    if (typeof (updates.body) === "string") {
+        note.body = updates.body;
         note.updatedAt = moment().valueOf();
     }
     saveNotes();
@@ -106,4 +97,10 @@ const updateNote =(id, updates) =>{
 }
 
 notes = loadNotes();
-export {getNotes, createNote, removeNote, sortNotes, updateNote}
+export {
+    getNotes,
+    createNote,
+    removeNote,
+    sortNotes,
+    updateNote
+}
