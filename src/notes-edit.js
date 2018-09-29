@@ -5,6 +5,7 @@ let notes = getSavedNotes();
 const titleElement = document.querySelector("#note-title");
 const bodyElement = document.querySelector("#note-body");
 const removeElement = document.querySelector("#remove-note");
+const addElement = document.querySelector("#add-note");
 const dateElement = document.querySelector("#last-edited");
 let note = notes.find((note) => note.id === noteId)
 if (!note) {
@@ -29,6 +30,10 @@ bodyElement.addEventListener("input", (event) => {
 })
 removeElement.addEventListener("click", (event) => {
     removeNote(note.id);
+    saveNotes(notes);
+    location.assign("./index.html");
+})
+addElement.addEventListener("click", (event) => {
     saveNotes(notes);
     location.assign("./index.html");
 })
