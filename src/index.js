@@ -2,7 +2,8 @@ import {
     createNote,
 } from "./notes"
 import {
-    setFilters
+    setFilters,
+    getFilters
 } from "./filters"
 import {
     renderNotes
@@ -23,7 +24,9 @@ document.querySelector("#search-text").addEventListener("input", (event) => {
     });
     renderNotes();
 });
+// Default sorting was not working because filters what not defined/imported.
 document.querySelector("#filter-by").addEventListener("change", (event) => {
+    const filters = getFilters();
     setFilters({
         sortBy: event.target.value
     });

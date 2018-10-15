@@ -33,7 +33,13 @@ const renderNotes = () => {
     notesElement.innerHTML = "";
     const filters = getFilters();
     const notes = sortNotes(filters.sortBy);
-    const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase()))
+    //changed to also check the body of the note
+    const filteredNotes = notes.filter((note) => {
+        if (note.title.toLowerCase().includes(filters.searchText.toLowerCase()) || note.body.toLowerCase().includes(filters.searchText.toLowerCase())) {
+            return note;
+        }
+
+    })
 
     if (filteredNotes.length > 0) {
         filteredNotes.forEach((note) => {
