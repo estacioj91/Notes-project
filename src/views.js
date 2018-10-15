@@ -9,6 +9,7 @@ import {
 const generateNoteDOM = (note) => {
     const noteElement = document.createElement("a");
     const textElement = document.createElement('p');
+    const bodyTextElement = document.createElement("p");
     const status = document.createElement("p");
 
     if (note.title.length > 0) {
@@ -16,9 +17,18 @@ const generateNoteDOM = (note) => {
     } else {
         textElement.textContent = "Unnamed note"
     }
+
+    if (note.body.length > 0) {
+        bodyTextElement.textContent = note.body;
+    } else {
+        bodyTextElement.textContent = "Empty note"
+    }
+
     textElement.classList.add("list-item__title");
+    bodyTextElement.classList.add("note-body-preview");
     // textElement.setAttribute("href", `/edit.html#${note.id}`);
     noteElement.appendChild(textElement);
+    noteElement.appendChild(bodyTextElement);
     noteElement.setAttribute("href", `./edit.html#${note.id}`);
     noteElement.classList.add("list-item");
     //status message
@@ -38,7 +48,6 @@ const renderNotes = () => {
         if (note.title.toLowerCase().includes(filters.searchText.toLowerCase()) || note.body.toLowerCase().includes(filters.searchText.toLowerCase())) {
             return note;
         }
-
     })
 
     if (filteredNotes.length > 0) {
@@ -71,6 +80,11 @@ const initializeEditPage = (noteId) => {
     titleElement.value = note.title;
     bodyElement.value = note.body;
     dateElement.textContent = generateLastEdited(note.updatedAt);
+    //changes add note to update note
+    if (titleElement.value != "" || bodyElement.value != "") {
+        const addButton = document.querySelector("#add-note");
+        addButton.textContent = "Update Note";
+    }
 }
 export {
     generateLastEdited,
